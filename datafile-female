@@ -1,6 +1,6 @@
 Cause	Subcause	Ratio	95% CI Upper	95% CI Lower	Difference	95% CI Upper	95% CI Lower
-Total, all causes of death	Total	1.79	1.66	1.94	556.7	459.3	654.1
-Infectious diseases	Total	1.37	0.56	3.38	2.7	−6.2	11.5
+Total, all causes of death	Total, all causes of death	1.79	1.66	1.94	556.7	459.3	654.1
+Infectious diseases	Infectious diseases	1.37	0.56	3.38	2.7	−6.2	11.5
 Cancer	Total	1.38	1.18	1.62	93.0	39.7	146.3
 Cancer	Trachea, bronchus, and lung	1.73	1.26	2.36	37.8	9.6	65.9
 Cancer	Intestine and rectum	1.67	1.12	2.51	20.6	−0.1	41.2
@@ -14,9 +14,9 @@ Cancer	Other cancer	0.98	0.64	1.49	−0.9	−18.6	16.9
 Endocrine system diseases	Total	2.39	1.70	3.38	33.7	13.8	53.7
 Endocrine system diseases	Diabetes mellitus	2.44	1.66	3.59	27.2	9.4	45.0
 Endocrine system diseases	Other endocrine	2.23	1.04	4.79	6.6	−2.5	15.7
-Blood and blood forming organs	Total	1.45	0.34	6.22	1.3	−4.9	7.6
-Mental disorders	Total	3.78	2.67	5.35	42.6	22.4	62.9
-Nervous system diseases	Total	2.24	1.52	3.29	25.2	7.7	42.8
+Blood and blood forming organs	Blood and blood forming organs	1.45	0.34	6.22	1.3	−4.9	7.6
+Mental disorders	Mental disorders	3.78	2.67	5.35	42.6	22.4	62.9
+Nervous system diseases	Nervous system diseases	2.24	1.52	3.29	25.2	7.7	42.8
 Circulatory system diseases	Total	1.61	1.42	1.83	153.4	101.8	204.9
 Circulatory system diseases	Ischaemic heart disease	1.80	1.52	2.13	105.3	65.2	145.4
 Circulatory system diseases	Heart failure	1.41	0.88	2.26	6.4	−3.9	16.7
@@ -29,15 +29,15 @@ Respiratory system diseases	Other respiratory system diseases	1.39	0.66	2.91	3.6
 Digestive system diseases	Total	2.92	2.11	4.04	51.4	25.9	76.9
 Digestive system diseases	Cirrhosis of liver	5.63	3.31	9.56	28.7	10.1	47.4
 Digestive system diseases	Other digestive system diseases	2.10	1.41	3.14	22.7	5.3	40.0
-Genitourinary system diseases	Total	1.43	0.79	2.58	5.1	−5.0	15.3
-Musculoskeletal system diseases	1.63	0.72	3.65	3.2	−3.5	10.0
-Ill defined conditions	Total	2.09	0.96	4.55	8.5	−4.2	21.2
+Genitourinary system diseases	Genitourinary system diseases	1.43	0.79	2.58	5.1	−5.0	15.3
+Musculoskeletal system diseases	Musculoskeletal system diseases	1.63	0.72	3.65	3.2	−3.5	10.0
+Ill defined conditions	Ill defined conditions	2.09	0.96	4.55	8.5	−4.2	21.2
 External causes	Total	3.68	2.74	4.95	75.6	44.7	106.4
 External causes	Suicide	5.59	3.24	9.64	26.3	8.8	43.9
 External causes	Falls	1.65	0.89	3.08	6.0	−3.4	15.4
 External causes	Other external causes	4.24	2.80	6.42	43.3	19.7	66.8
-Other and unknown	Total	0.99	0.23	4.33	0.0	−4.9	4.8
-Smoking related	Total	2.03	1.63	2.54	87.7	49.7	125.7
-Alcohol related	Total	8.20	5.03	13.38	36.5	16.0	57.0
-Drug related	Total	9.17	5.54	15.18	32.3	13.8	50.9
-Amenable to medical intervention (<75 years)	Total	1.82	1.37	2.43	54.5	19.0	85.6
+Other and unknown	Other and unknown	0.99	0.23	4.33	0.0	−4.9	4.8
+Smoking related	Smoking related	2.03	1.63	2.54	87.7	49.7	125.7
+Alcohol related	Alcohol related	8.20	5.03	13.38	36.5	16.0	57.0
+Drug related	Drug related	9.17	5.54	15.18	32.3	13.8	50.9
+Amenable to medical intervention (<75 years)	Amenable to medical intervention (<75 years)	1.82	1.37	2.43	54.5	19.0	85.6
