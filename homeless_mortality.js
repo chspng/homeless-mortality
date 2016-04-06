@@ -3,8 +3,8 @@
 // Christine P'ng
 
 // set up variables
-var width = 300,
-    height = 300;
+var width = 500,
+    height = 500;
 
 // create frame for scatterplot
 var chartspace = d3.select("body")
@@ -12,18 +12,36 @@ var chartspace = d3.select("body")
     .attr("width", width)
     .attr("height", height);
 
+var xaxis = d3.scale.linear()
+	.range([0, width]);
+
+var yaxis = d3.scale.linear()
+	.range([height, 0]);
 
 // read in data
-d3.tsv("datasubset.tsv", type, function(error, data){
+d3.tsv("datafile-male.tsv", type, function(error, data){
+	xaxis.domain([d3.min(data, function(d) {return d.Ratio;}), d3.max(data, function(d) {return d.Ratio;})]); 
+	yaxis.domain([d3.max(data, function(d) {return d.Difference;}), d3.min(data, function(d) {return d.Difference;})]);
 
 	chartspace.selectAll("circle")
 		.data(data)
 	  .enter()
 		.append("circle")
-		  .attr("cx", function(d) {return d.Ratio; })
-		  .attr("cy", function(d) {return d.Difference; })
+		  .attr("cx", function(d) {return xaxis(d.Ratio); }) // this is a temporary fix for the x axis scaling
+		  .attr("cy", function(d) {return yaxis(d.Difference); })
 		  .attr("r", 2)
 		  .style("fill", "steelblue");
+
+	chartspace.selectAll("text")
+		.data(data)
+	  .enter()
+	  	.append("text")
+	  	  .text(function(d) {return d.Cause; })
+	  	    .attr("x", function(d) { return xaxis(d.Ratio) + 5; })
+	  	    .attr("y", function(d) { return yaxis(d.Difference) + 3; })
+	  	    .attr("font-family", "sans-serif")
+	  	    .attr("font-size", "10px");
+
 });
 
 //this function coerces the appropriate columns to numerals
@@ -36,8 +54,6 @@ function type(d){
 	d.Difference_CI_Lower = +d.Difference_CI_Lower;
 	return d;
 }
-
-
 
 // var width = 420,
 //     barHeight = 20;
