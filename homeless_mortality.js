@@ -3,8 +3,8 @@
 // Christine P'ng
 
 // set up variables
-var width = 500,
-    height = 500;
+var width = 600,
+    height = 800;
 
 // create frame for scatterplot
 var chartspace = d3.select("body")
@@ -12,24 +12,36 @@ var chartspace = d3.select("body")
     .attr("width", width)
     .attr("height", height);
 
-var xaxis = d3.scale.linear()
-	.range([0, width]);
+var padding = 100;
 
-var yaxis = d3.scale.linear()
-	.range([height, 0]);
+var xscale = d3.scale.linear()
+	.rangeRound([padding, width - padding])
+	.nice();
+
+var yscale = d3.scale.linear()
+	.rangeRound([height - padding, padding])
+	.nice();
+
+var xaxis = d3.svg.axis()
+	.orient("bottom");
+
+var yaxis = d3.svg.axis()
+	.orient("left");
 
 // read in data
 d3.tsv("datafile-male.tsv", type, function(error, data){
-	xaxis.domain([d3.min(data, function(d) {return d.Ratio;}), d3.max(data, function(d) {return d.Ratio;})]); 
-	yaxis.domain([d3.max(data, function(d) {return d.Difference;}), d3.min(data, function(d) {return d.Difference;})]);
+	xscale.domain([d3.min(data, function(d) {return d.Ratio;}), d3.max(data, function(d) {return d.Ratio;})]); 
+	yscale.domain([d3.min(data, function(d) {return d.Difference;}), d3.max(data, function(d) {return d.Difference;})]);
+	xaxis.scale(xscale);
+	yaxis.scale(yscale);
 
 	chartspace.selectAll("circle")
 		.data(data)
 	  .enter()
 		.append("circle")
-		  .attr("cx", function(d) {return xaxis(d.Ratio); }) // this is a temporary fix for the x axis scaling
-		  .attr("cy", function(d) {return yaxis(d.Difference); })
-		  .attr("r", 2)
+		  .attr("cx", function(d) {return xscale(d.Ratio); }) // this is a temporary fix for the x axis scaling
+		  .attr("cy", function(d) {return yscale(d.Difference); })
+		  .attr("r", 4)
 		  .style("fill", "steelblue");
 
 	chartspace.selectAll("text")
@@ -37,10 +49,13 @@ d3.tsv("datafile-male.tsv", type, function(error, data){
 	  .enter()
 	  	.append("text")
 	  	  .text(function(d) {return d.Cause; })
-	  	    .attr("x", function(d) { return xaxis(d.Ratio) + 5; })
-	  	    .attr("y", function(d) { return yaxis(d.Difference) + 3; })
+	  	    .attr("x", function(d) { return xscale(d.Ratio) + 5; })
+	  	    .attr("y", function(d) { return yscale(d.Difference) + 3; })
 	  	    .attr("font-family", "sans-serif")
 	  	    .attr("font-size", "10px");
+
+	chartspace.append("g")
+		.call(xaxis);
 
 });
 
@@ -54,47 +69,4 @@ function type(d){
 	d.Difference_CI_Lower = +d.Difference_CI_Lower;
 	return d;
 }
-
-// var width = 420,
-//     barHeight = 20;
-
-// var x = d3.scale.linear()
-//     .range([0, width]);
-
-// var chart = d3.select(".chart")
-//     .attr("width", width);
-
-// //this works in firefox, not chrome
-// d3.tsv("tempdata.tsv", type, function(error, data) {
-//   x.domain([0, d3.max(data, function(d) { return d.value; })]);
-
-//   chart.attr("height", barHeight * data.length);
-
-//   var bar = chart.selectAll("g")
-//       .data(data)
-//     .enter().append("g")
-//       .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-
-//   bar.append("rect")
-//       .attr("width", function(d) { return x(d.value); })
-//       .attr("height", barHeight - 1);
-
-//   bar.append("text")
-//       .attr("x", function(d) { return x(d.value) - 3; })
-//       .attr("y", barHeight / 2)
-//       .attr("dy", ".35em")
-//       .text(function(d) { return d.value; });
-// });
-
-// function type(d) {
-//   d.value = +d.value; // coerce to number
-//   return d;
-// }
-
-// d3.select(".chart")
-//     .selectAll("div")
-//       .data(data)
-//     .enter().append("div")
-//       .style("width", function(d) { return x(d) + "px";})
-//       .text(function(d) { return d; });
 
