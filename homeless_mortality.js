@@ -3,9 +3,9 @@
 // Christine P'ng
 
 // set up variables
-var margin = {top: 30, right: 30, bottom: 30, left: 40},
-    width = 600 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+var margin = {top: 30, right: 30, bottom: 30, left: 100},
+    width = 850 - margin.left - margin.right,
+    height = 850 - margin.top - margin.bottom;
 
 // create frame for scatterplot
 var chartspace = d3.select("body")
@@ -13,7 +13,7 @@ var chartspace = d3.select("body")
     .attr("width", width)
     .attr("height", height);
 
-var padding = 70;
+var padding = 120;
 
 var xscale = d3.scale.linear()
 	.rangeRound([padding, width - padding])
@@ -32,7 +32,7 @@ var yaxis = d3.svg.axis()
 
 
 // read in data
-d3.tsv("datafile-male.tsv", type, function(error, data){
+d3.tsv("datafile-male", type, function(error, data){
 	xscale.domain([d3.min(data, function(d) {return d.Ratio;}), d3.max(data, function(d) {return d.Ratio;})]); 
 	yscale.domain([d3.min(data, function(d) {return d.Difference;}), d3.max(data, function(d) {return d.Difference;})]);
 	xaxis.scale(xscale);
@@ -47,27 +47,37 @@ d3.tsv("datafile-male.tsv", type, function(error, data){
 		  .attr("r", 4)
 		  .style("fill", "steelblue");
 
-	chartspace.selectAll("text")
-		.data(data)
-	  .enter()
-	  	.append("text")
-	  	  .text(function(d) {return d.Cause; })
-	  	    .attr("x", function(d) { return xscale(d.Ratio) + 5; })
-	  	    .attr("y", function(d) { return yscale(d.Difference) + 3; })
-	  	    .attr("font-family", "sans-serif")
-	  	    .attr("font-size", "10px");
+	// chartspace.selectAll("text")
+	// 	.data(data)
+	//   .enter()
+	//   	.append("text")
+	//   	  .text(function(d) {return d.Cause; })
+	//   	    .attr("x", function(d) { return xscale(d.Ratio) + 5; })
+	//   	    .attr("y", function(d) { return yscale(d.Difference) + 3; })
+	//   	    .attr("font-family", "sans-serif")
+	//   	    .attr("font-size", "10px");
 
 	// adding the xaxis
 	chartspace.append("g")
 		.attr("class", "axis")
 		.attr("transform", "translate(0," + (height - padding) + ")")
-		.call(xaxis);
+		.call(xaxis)
+	  .append("text")
+	    .attr("x", width - padding)
+	    .attr("y", margin.bottom + 5)
+	    .style("text-anchor", "end")
+	    .text("Mortality Rate Ratio");
 
 	// adding the yaxis
 	chartspace.append("g")
 		.attr("class", "axis")
 		.attr("transform", "translate(" + padding + ", 0)")
-		.call(yaxis);
+		.call(yaxis)
+	  .append("text")
+	    .attr("y", padding - 10)
+	    //.attr("x", margin.left)
+	    .style("text-anchor", "end")
+	    .text("Mortality Rate Difference");
 
 
 });
