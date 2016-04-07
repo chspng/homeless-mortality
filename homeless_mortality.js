@@ -54,8 +54,10 @@ d3.tsv("datafile-male", type, function(error, data){
 
  	// background grey fill
     chartspace.append("rect")
-		.attr("width", width)
-		.attr("height", height);
+    	.attr("x", padding)
+    	.attr("y", padding)
+		.attr("width", width-padding * 2)
+		.attr("height", height-padding * 2);
 
 	// adding the data points
 	chartspace.selectAll("circle")
@@ -88,9 +90,14 @@ d3.tsv("datafile-male", type, function(error, data){
 		  		.style("left", xposition + "px")
 		  		.style("top", yposition + "px");
 
+		  	var subcause = "";
+		  	if (d.Subcause != ""){
+		  		subcause = ("- " + d.Subcause );
+		  	}
+
 		  	// Updating the contents of the tooltip
 		  	d3.select("#cause")
-		  		.text(d.Cause + " " + d.Subcause);
+		  		.text(d.Cause + " " + subcause);
 
 		  	d3.select("#ratio")
 		  		.text(d.Ratio);
