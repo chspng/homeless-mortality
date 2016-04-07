@@ -37,7 +37,7 @@ d3.tsv("datafile-male", type, function(error, data){
 	xscale.domain([d3.min(data, function(d) {return Math.floor(d.Ratio);}), d3.max(data, function(d) {return Math.ceil(d.Ratio);})]); 
 	yscale.domain([d3.min(data, function(d) {return Math.floor(d.Difference - 100);}), d3.max(data, function(d) {return Math.ceil(d.Difference + 100);})]);
 	xaxis.scale(xscale)
-		.tickSize(-550 );
+		.tickSize(-550 ); //THIS IS MANUALLY SET
 	yaxis.scale(yscale)
 		.tickSize(-480);
 
@@ -52,6 +52,7 @@ d3.tsv("datafile-male", type, function(error, data){
 	// 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
  //    	.call(zoom);
 
+ 	// background grey fill
     chartspace.append("rect")
 		.attr("width", width)
 		.attr("height", height);
@@ -59,32 +60,37 @@ d3.tsv("datafile-male", type, function(error, data){
 	// adding the data points
 	chartspace.selectAll("circle")
 		.data(data)
+	  
+	  // formatting and positioning data points
 	  .enter()
 		.append("circle")
 		  .attr("cx", function(d) {return xscale(d.Ratio); }) 
 		  .attr("cy", function(d) {return yscale(d.Difference); })
 		  .attr("r", 5)
-		  .style("stroke", "steelblue")
+		  .style("stroke", "darkred")
 		  .style("stroke-width", 1.5)
 		  .style("fill", "none")
 		  
 		  .on("mouseover", function(d){
+		  	
 		  	// highlight points upon mouseover event
 		  	d3.select(this)
 		  	  .transition()
-		  	  .duration(100)
-		  	  .style("fill", "red")
+		  	  .duration(200)
+		  	  .style("fill", "darkred")
 		  	  .attr("r", 10)
 
-		  	// set tooltip  
-		  	var xposition = parseFloat(d3.select(this).attr("x") + xscale(d.Ratio) + 20); // FIX LOCATIONS
+		  	// set tooltip position
+		  	var xposition = parseFloat(d3.select(this).attr("x") + xscale(d.Ratio) + 20); 
 		  	var yposition = parseFloat(d3.select(this).attr("y") + yscale(d.Difference) + 20);
 
 		  	d3.select("#tooltip")
 		  		.style("left", xposition + "px")
-		  		.style("top", yposition + "px")
-		  		.select("#cause")
-		  			.text(d.Cause + " " + d.Subcause);
+		  		.style("top", yposition + "px");
+
+		  	// Updating the contents of the tooltip
+		  	d3.select("#cause")
+		  		.text(d.Cause + " " + d.Subcause);
 
 		  	d3.select("#ratio")
 		  		.text(d.Ratio);
@@ -106,18 +112,17 @@ d3.tsv("datafile-male", type, function(error, data){
 
 		  	d3.select("#tooltip")
 		  		.classed("hidden", false);
-
 		  })
+
 		  .on("mouseout", function(){
 		  	d3.select(this)
 		  	  .transition()
-		  	  .duration(100)
+		  	  .duration(200)
 		  	  .style("fill", "none")
 		  	  .attr("r", 5)
 			
 			d3.select("#tooltip")
 		  	  .classed("hidden", true);
-
 		  });
 		  
 	// adding the xaxis + x axis label
@@ -137,6 +142,7 @@ d3.tsv("datafile-male", type, function(error, data){
 		.attr("transform", "translate(" + (padding) + ", 0)")
 		.call(yaxis)
 	  .append("text")
+	  	.attr("x", padding)
 	    .attr("y", padding - 10)
 	    .style("text-anchor", "end")
 	    .text("Mortality Rate Difference");
@@ -149,7 +155,7 @@ function type(d){
 	d.Ratio = +d.Ratio;
 	d.Ratio_CI_Upper = +d.Ratio_CI_Upper;
 	d.Ratio_CI_Lower = +d.Ratio_CI_Lower;
-	d.Difference = +d.Difference;
+	d.Difference = parseInt(d.Difference);
 	d.Difference_CI_Upper = +d.Difference_CI_Upper;
 	d.Difference_CI_Lower = +d.Difference_CI_Lower;
 	return d;
