@@ -1,4 +1,4 @@
-Cause	Subcause	Ratio	95% CI Upper	95% CI Lower	Difference	95% CI Upper	95% CI Lower
+Cause	Subcause	Ratio	Ratio_CI_Upper	Ratio_CI_Lower	Difference	Difference_CI_Upper	Difference_CI_Lower
 Total, all causes of death		2.01	1.92	2.09	1237.8	1134.6	1341.0
 Infectious diseases		2.80	2.07	3.78	30.8	16.3	45.3
 Cancer	Total	1.56	1.44	1.70	219.1	168.9	269.4
