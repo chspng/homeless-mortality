@@ -24,7 +24,7 @@ var yscale = d3.scale.linear()
 	.nice();
 
 var xaxis = d3.svg.axis()
-	.orient("bottom");
+	.orient("bottom")
 
 var yaxis = d3.svg.axis()
 	.orient("left");
@@ -57,9 +57,18 @@ d3.tsv("datafile-male.tsv", type, function(error, data){
 	  	    .attr("font-family", "sans-serif")
 	  	    .attr("font-size", "10px");
 
+	// adding the xaxis
 	chartspace.append("g")
+		.attr("class", "axis")
+		.attr("transform", "translate(0," + (height - padding) + ")")
 		.call(xaxis);
-		
+
+	// adding the yaxis
+	chartspace.append("g")
+		.attr("class", "axis")
+		.attr("transform", "translate(" + padding + ", 0)")
+		.call(yaxis);
+
 
 });
 
