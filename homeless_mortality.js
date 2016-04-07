@@ -77,8 +77,8 @@ d3.tsv("datafile-male", type, function(error, data){
 		  	  .attr("r", 10)
 
 		  	// set tooltip  
-		  	var xposition = parseFloat(d3.select(this).attr("x")) ; // FIX LOCATIONS
-		  	var yposition = parseFloat(d3.select(this).attr("y")) ;
+		  	var xposition = parseFloat(d3.select(this).attr("x") + xscale(d.Ratio) + 20); // FIX LOCATIONS
+		  	var yposition = parseFloat(d3.select(this).attr("y") + yscale(d.Difference) + 20);
 
 		  	d3.select("#tooltip")
 		  		.style("left", xposition + "px")
@@ -100,7 +100,7 @@ d3.tsv("datafile-male", type, function(error, data){
 
 		  	d3.select("#difciupper")
 		  		.text(d.Difference_CI_Upper);
-		  		
+
 		  	d3.select("#difcilower")
 		  		.text(d.Difference_CI_Lower);
 
@@ -114,48 +114,12 @@ d3.tsv("datafile-male", type, function(error, data){
 		  	  .duration(100)
 		  	  .style("fill", "none")
 		  	  .attr("r", 5)
+			
+			d3.select("#tooltip")
+		  	  .classed("hidden", true);
+
 		  });
-
-		  // .on("mouseover", function(d){
-		  // 	var xposition = parseFloat(d3.select(this).attr("x")) ; // FIX LOCATIONS
-		  // 	var yposition = parseFloat(d3.select(this).attr("y")) ;
-
-		  // 	d3.select("#tooltip")
-		  // 		.style("left", xposition + "px")
-		  // 		.style("top", yposition + "px")
-		  // 		.select("#ratio")
-		  // 			.text(d.Ratio);
-
-		  // 	d3.select("tooltip")
-		  // 		.select("#cause")
-		  // 			.text(d.cause);
-
-
-		  // 	d3.select("#tooltip")
-		  // 		.classed("hidden", false);
-
-		  // })
-		  // .on("mouseout", function(){
-		  // 	//hide tooltip
-		  // 	d3.select("#tooltip").classed("hidden", true);
-		  // })
 		  
-		  // Added point info upon mouseover
-		  // .append("title")
-		  // .text(function(d){
-		  // 	return (d.Cause + " " + d.Subcause);
-		  // });
-
-	// chartspace.selectAll("text")
-	// 	.data(data)
-	//   .enter()
-	//   	.append("text")
-	//   	  .text(function(d) {return d.Cause; })
-	//   	    .attr("x", function(d) { return xscale(d.Ratio) + 5; })
-	//   	    .attr("y", function(d) { return yscale(d.Difference) + 3; })
-	//   	    .attr("font-family", "sans-serif")
-	//   	    .attr("font-size", "10px");
-
 	// adding the xaxis + x axis label
 	chartspace.append("g")
 		.attr("class", "axis")
