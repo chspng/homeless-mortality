@@ -67,12 +67,46 @@ d3.tsv("datafile-male", type, function(error, data){
 		  .style("stroke", "steelblue")
 		  .style("stroke-width", 1.5)
 		  .style("fill", "none")
-		  .on("mouseover", function(){
+		  
+		  .on("mouseover", function(d){
+		  	// highlight points upon mouseover event
 		  	d3.select(this)
 		  	  .transition()
 		  	  .duration(100)
 		  	  .style("fill", "red")
 		  	  .attr("r", 10)
+
+		  	// set tooltip  
+		  	var xposition = parseFloat(d3.select(this).attr("x")) ; // FIX LOCATIONS
+		  	var yposition = parseFloat(d3.select(this).attr("y")) ;
+
+		  	d3.select("#tooltip")
+		  		.style("left", xposition + "px")
+		  		.style("top", yposition + "px")
+		  		.select("#cause")
+		  			.text(d.Cause + " " + d.Subcause);
+
+		  	d3.select("#ratio")
+		  		.text(d.Ratio);
+
+		  	d3.select("#ratiociupper")
+		  		.text(d.Ratio_CI_Upper);
+
+		  	d3.select("#ratiocilower")
+		  		.text(d.Ratio_CI_Lower);
+
+		  	d3.select("#difference")
+		  		.text(d.Difference);
+
+		  	d3.select("#difciupper")
+		  		.text(d.Difference_CI_Upper);
+		  		
+		  	d3.select("#difcilower")
+		  		.text(d.Difference_CI_Lower);
+
+		  	d3.select("#tooltip")
+		  		.classed("hidden", false);
+
 		  })
 		  .on("mouseout", function(){
 		  	d3.select(this)
@@ -80,11 +114,37 @@ d3.tsv("datafile-male", type, function(error, data){
 		  	  .duration(100)
 		  	  .style("fill", "none")
 		  	  .attr("r", 5)
-		  })
-		  .append("title")
-		  .text(function(d){
-		  	return (d.Cause + " " + d.Subcause);
 		  });
+
+		  // .on("mouseover", function(d){
+		  // 	var xposition = parseFloat(d3.select(this).attr("x")) ; // FIX LOCATIONS
+		  // 	var yposition = parseFloat(d3.select(this).attr("y")) ;
+
+		  // 	d3.select("#tooltip")
+		  // 		.style("left", xposition + "px")
+		  // 		.style("top", yposition + "px")
+		  // 		.select("#ratio")
+		  // 			.text(d.Ratio);
+
+		  // 	d3.select("tooltip")
+		  // 		.select("#cause")
+		  // 			.text(d.cause);
+
+
+		  // 	d3.select("#tooltip")
+		  // 		.classed("hidden", false);
+
+		  // })
+		  // .on("mouseout", function(){
+		  // 	//hide tooltip
+		  // 	d3.select("#tooltip").classed("hidden", true);
+		  // })
+		  
+		  // Added point info upon mouseover
+		  // .append("title")
+		  // .text(function(d){
+		  // 	return (d.Cause + " " + d.Subcause);
+		  // });
 
 	// chartspace.selectAll("text")
 	// 	.data(data)
@@ -116,7 +176,6 @@ d3.tsv("datafile-male", type, function(error, data){
 	    .attr("y", padding - 10)
 	    .style("text-anchor", "end")
 	    .text("Mortality Rate Difference");
-
 
 });
 
