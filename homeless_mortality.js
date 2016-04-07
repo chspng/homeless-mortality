@@ -153,15 +153,22 @@ d3.tsv("datafile-male", type, function(error, data){
 		.select("line")
 		  .style("stroke", "grey");
 
-});
+	chartspace.append("text")
+		.attr("y", margin.top)
+		.attr("x", margin.left)
+		.style("font-weight", "bold")
+		.style("font-size", "16px")
+		.style("font-family", "sans-serif")
+		.text("Mortality among the homeless and marginally housed, by major cause of death");
 
+});
 
 //this function coerces the appropriate columns to numerals
 function type(d){
 	d.Ratio = +d.Ratio;
 	d.Ratio_CI_Upper = +d.Ratio_CI_Upper;
 	d.Ratio_CI_Lower = +d.Ratio_CI_Lower;
-	d.Difference = parseInt(d.Difference);
+	d.Difference = +d.Difference;
 	d.Difference_CI_Upper = +d.Difference_CI_Upper;
 	d.Difference_CI_Lower = +d.Difference_CI_Lower;
 	return d;
