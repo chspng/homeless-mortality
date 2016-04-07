@@ -38,7 +38,6 @@ d3.tsv("datafile-male", type, function(error, data){
 	yscale.domain([d3.min(data, function(d) {return Math.floor(d.Difference - 100);}), d3.max(data, function(d) {return Math.ceil(d.Difference + 100);})]);
 	xaxis.scale(xscale)
 		.tickSize(-550 );
-		//.tickValues([0,1,2,3,4,5,6,7,8,9,10,11,12]); //this manually adds the tick mark locations, but the axis line doesn't follow
 	yaxis.scale(yscale)
 		.tickSize(-480);
 
@@ -67,7 +66,21 @@ d3.tsv("datafile-male", type, function(error, data){
 		  .attr("r", 5)
 		  .style("stroke", "steelblue")
 		  .style("stroke-width", 1.5)
-		  .style("fill", "none");
+		  .style("fill", "none")
+		  .on("mouseover", function(){
+		  	d3.select(this)
+		  	  .transition()
+		  	  .duration(100)
+		  	  .style("fill", "red")
+		  	  .attr("r", 10)
+		  })
+		  .on("mouseout", function(){
+		  	d3.select(this)
+		  	  .transition()
+		  	  .duration(100)
+		  	  .style("fill", "none")
+		  	  .attr("r", 5)
+		  });
 
 	// chartspace.selectAll("text")
 	// 	.data(data)
