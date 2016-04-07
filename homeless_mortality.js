@@ -3,8 +3,9 @@
 // Christine P'ng
 
 // set up variables
-var width = 600,
-    height = 800;
+var margin = {top: 30, right: 30, bottom: 30, left: 40},
+    width = 600 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
 
 // create frame for scatterplot
 var chartspace = d3.select("body")
@@ -12,7 +13,7 @@ var chartspace = d3.select("body")
     .attr("width", width)
     .attr("height", height);
 
-var padding = 100;
+var padding = 70;
 
 var xscale = d3.scale.linear()
 	.rangeRound([padding, width - padding])
@@ -27,6 +28,8 @@ var xaxis = d3.svg.axis()
 
 var yaxis = d3.svg.axis()
 	.orient("left");
+
+
 
 // read in data
 d3.tsv("datafile-male.tsv", type, function(error, data){
@@ -56,6 +59,7 @@ d3.tsv("datafile-male.tsv", type, function(error, data){
 
 	chartspace.append("g")
 		.call(xaxis);
+		
 
 });
 
