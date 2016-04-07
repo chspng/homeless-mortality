@@ -80,6 +80,10 @@ d3.tsv("datafile-male", type, function(error, data){
 		  	  .duration(100)
 		  	  .style("fill", "none")
 		  	  .attr("r", 5)
+		  })
+		  .append("title")
+		  .text(function(d){
+		  	return (d.Cause + " " + d.Subcause);
 		  });
 
 	// chartspace.selectAll("text")
