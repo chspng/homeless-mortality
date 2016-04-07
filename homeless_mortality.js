@@ -2,16 +2,10 @@
 // This file contains D3 code for generating an interactive data visualization exploring causes of mortality among homeless populations in Canada
 // Christine P'ng
 
-// set up variables
+// initialize variables
 var margin = {top: 30, right: 30, bottom: 30, left: 100},
     width = 850 - margin.left - margin.right,
     height = 850 - margin.top - margin.bottom;
-
-// create frame for scatterplot
-var chartspace = d3.select("body")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
 
 var padding = 120;
 
@@ -29,15 +23,41 @@ var xaxis = d3.svg.axis()
 var yaxis = d3.svg.axis()
 	.orient("left");
 
-
-
+// create plotting space
+var chartspace = d3.select("body")
+    .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+ 
 // read in data
 d3.tsv("datafile-male", type, function(error, data){
+	if (error) throw error;
+
+	// setting up the scaling of data points to fit within the frame
 	xscale.domain([d3.min(data, function(d) {return d.Ratio;}), d3.max(data, function(d) {return d.Ratio;})]); 
 	yscale.domain([d3.min(data, function(d) {return d.Difference;}), d3.max(data, function(d) {return d.Difference;})]);
-	xaxis.scale(xscale);
-	yaxis.scale(yscale);
+	xaxis.scale(xscale)
+		.tickSize(-600 );
+		//.tickValues([0,1,2,3,4,5,6,7,8,9,10,11,12]); this manually adds the tick mark locations, but the axis line doesn't follow
+	yaxis.scale(yscale)
+		.tickSize(-width);
 
+	// adding interactivity
+	// var zoom = d3.behavior.zoom()
+	// 	.x(xaxis)
+	// 	.y(yaxis)
+	// 	.scaleExtent([1, 32])
+	// 	.on("zoom", zoomed);
+
+	// chartspace.append("g")
+	// 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+ //    	.call(zoom);
+
+    chartspace.append("rect")
+		.attr("width", width)
+		.attr("height", height);
+
+	// adding the data points
 	chartspace.selectAll("circle")
 		.data(data)
 	  .enter()
@@ -59,7 +79,7 @@ d3.tsv("datafile-male", type, function(error, data){
 	//   	    .attr("font-family", "sans-serif")
 	//   	    .attr("font-size", "10px");
 
-	// adding the xaxis
+	// adding the xaxis + x axis label
 	chartspace.append("g")
 		.attr("class", "axis")
 		.attr("transform", "translate(0," + (height - padding) + ")")
@@ -70,7 +90,7 @@ d3.tsv("datafile-male", type, function(error, data){
 	    .style("text-anchor", "end")
 	    .text("Mortality Rate Ratio");
 
-	// adding the yaxis
+	// adding the yaxis + y axis label
 	chartspace.append("g")
 		.attr("class", "axis")
 		.attr("transform", "translate(" + padding + ", 0)")
@@ -83,6 +103,7 @@ d3.tsv("datafile-male", type, function(error, data){
 
 });
 
+
 //this function coerces the appropriate columns to numerals
 function type(d){
 	d.Ratio = +d.Ratio;
@@ -94,3 +115,8 @@ function type(d){
 	return d;
 }
 
+
+// function zoomed(){
+// 	svg.select(".xaxis.axis").call(xaxis);
+// 	svg.select(".yaxis.axis").call(yaxis);
+// }
