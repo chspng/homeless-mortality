@@ -42,10 +42,12 @@ d3.tsv("datafile-male", type, function(error, data){
 		.data(data)
 	  .enter()
 		.append("circle")
-		  .attr("cx", function(d) {return xscale(d.Ratio); }) // this is a temporary fix for the x axis scaling
+		  .attr("cx", function(d) {return xscale(d.Ratio); }) 
 		  .attr("cy", function(d) {return yscale(d.Difference); })
-		  .attr("r", 4)
-		  .style("fill", "steelblue");
+		  .attr("r", 5)
+		  .style("stroke", "steelblue")
+		  .style("stroke-width", 1.5)
+		  .style("fill", "none");
 
 	// chartspace.selectAll("text")
 	// 	.data(data)
@@ -75,7 +77,6 @@ d3.tsv("datafile-male", type, function(error, data){
 		.call(yaxis)
 	  .append("text")
 	    .attr("y", padding - 10)
-	    //.attr("x", margin.left)
 	    .style("text-anchor", "end")
 	    .text("Mortality Rate Difference");
 
