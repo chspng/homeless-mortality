@@ -34,13 +34,13 @@ d3.tsv("datafile-male", type, function(error, data){
 	if (error) throw error;
 
 	// setting up the scaling of data points to fit within the frame
-	xscale.domain([d3.min(data, function(d) {return d.Ratio;}), d3.max(data, function(d) {return d.Ratio;})]); 
-	yscale.domain([d3.min(data, function(d) {return d.Difference;}), d3.max(data, function(d) {return d.Difference;})]);
+	xscale.domain([d3.min(data, function(d) {return Math.floor(d.Ratio);}), d3.max(data, function(d) {return Math.ceil(d.Ratio);})]); 
+	yscale.domain([d3.min(data, function(d) {return Math.floor(d.Difference - 100);}), d3.max(data, function(d) {return Math.ceil(d.Difference + 100);})]);
 	xaxis.scale(xscale)
-		.tickSize(-600 );
-		//.tickValues([0,1,2,3,4,5,6,7,8,9,10,11,12]); this manually adds the tick mark locations, but the axis line doesn't follow
+		.tickSize(-550 );
+		//.tickValues([0,1,2,3,4,5,6,7,8,9,10,11,12]); //this manually adds the tick mark locations, but the axis line doesn't follow
 	yaxis.scale(yscale)
-		.tickSize(-width);
+		.tickSize(-480);
 
 	// adding interactivity
 	// var zoom = d3.behavior.zoom()
@@ -93,7 +93,7 @@ d3.tsv("datafile-male", type, function(error, data){
 	// adding the yaxis + y axis label
 	chartspace.append("g")
 		.attr("class", "axis")
-		.attr("transform", "translate(" + padding + ", 0)")
+		.attr("transform", "translate(" + (padding) + ", 0)")
 		.call(yaxis)
 	  .append("text")
 	    .attr("y", padding - 10)
