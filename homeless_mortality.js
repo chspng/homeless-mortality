@@ -147,6 +147,12 @@ d3.tsv("datafile-male", type, function(error, data){
 	    .style("text-anchor", "end")
 	    .text("Mortality Rate Difference");
 
+	// highlight special axes lines
+	d3.selectAll("g.tick")
+		.filter(function(d) {return (d==1 || d==0);})
+		.select("line")
+		  .style("stroke", "grey");
+
 });
 
 
