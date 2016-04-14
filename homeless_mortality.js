@@ -30,32 +30,19 @@ d3.tsv("datafile-male", type, function(error, data){
 	// setting up the scaling of data points to fit within the frame
 	xscale.domain([d3.min(data, function(d) {return Math.floor(d.Ratio);}), d3.max(data, function(d) {return Math.ceil(d.Ratio);})]); 
 	
-	// this is a y scale excluding the TOTAL
+	// this y scale excludes the TOTAL data point -- will add in when zoomable axes are implemented
 	yscale.domain([d3.min(data, function(d) {return Math.floor(d.Difference - 40);}), 350]);
-	
-	// this is a Y scale including the TOTAL 
-	//yscale.domain([d3.min(data, function(d) {return Math.floor(d.Difference - 100);}), d3.max(data, function(d) {return Math.ceil(d.Difference + 100);})]);
 	
 	xaxis.scale(xscale)
 		.tickSize(-550 ); //THIS IS MANUALLY SET
 	yaxis.scale(yscale)
 		.tickSize(-730);
 
-	// adding interactivity
-	// var zoom = d3.behavior.zoom()
-	// 	.x(xscale)
-	// 	.y(yscale)
-	// 	.scaleExtent([1, 50])
-	// 	.on("zoom", zoomed);
-
 	// create plotting space
 	var chartspace = d3.select("body")
 	    .append("svg")
 	      .attr("width", width)
 	      .attr("height", height);
-		// .append("g")
-		//    //.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-  //    	  .call(zoom);
 
  	// background grey fill
     chartspace.append("rect")
@@ -63,8 +50,6 @@ d3.tsv("datafile-male", type, function(error, data){
     	.attr("y", padding)
 		.attr("width", width-padding * 2)
 		.attr("height", height-padding * 2);
-
-
 
 	// adding the data points
 	chartspace.selectAll("circle")
@@ -79,10 +64,8 @@ d3.tsv("datafile-male", type, function(error, data){
 		  .style("stroke", "darkred")
 		  .style("stroke-width", 1.5)
 		  .style("fill", "none")
-		  
 		  .on("mouseover", function(d){
-		  	
-		  	// highlight points upon mouseover event
+		   	// highlight points upon mouseover event
 		  	d3.select(this)
 		  	  .transition()
 		  	  .duration(150)
@@ -177,19 +160,40 @@ d3.tsv("datafile-male", type, function(error, data){
 		.style("font-family", "sans-serif")
 		.text("Mortality among the homeless and marginally housed, by major cause of death");
 
-	// function zoomed(){
-	// 	chartspace.select(".xscale.axis").call(xaxis);
-	// 	chartspace.select(".yscale.axis").call(yaxis);
-	// }
-	// add citation
-	// chartspace.append("text")
-	// 	.attr("y", height - margin.bottom)
-	// 	.attr("x", padding)
-	// 	.style("font-size", "10px")
-	// 	.style("font-family", "sans-serif")
-	// 	.text("Data source: Hwang Stephen W, Wilkins Russell, Tjepkema Michael, O’Campo Patricia J, Dunn James R. Mortality among residents of shelters, rooming houses, and hotels in Canada: 11 year follow-up study BMJ 2009; 339 :b4036")
-	// 	  .call(wrap, width - padding * 2);
+	// add footer information
+	var footer = d3.select("body")
+	    .append("div")
+	      .attr("id", "footer");
 
+	footer.append("text")
+		.text("Data source: ");
+	
+	footer.append("a")
+		.attr("class", "link")
+		.attr("href", "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2767481/")
+		.html("Hwang Stephen W, Wilkins Russell, Tjepkema Michael, O’Campo Patricia J, Dunn James R. Mortality among residents of shelters, rooming houses, and hotels in Canada: 11 year follow-up study BMJ 2009; 339 :b4036");
+
+	footer.append("p");
+
+	footer.append("text")
+		.text("Rate Difference: The rate difference measured the absolute difference between the rates of the highest and lowest income group. Large rate differences indicate high levels of absolute inequities. A rate difference is considered statistically significant if the 95% confidence interval does not include the value of zero.");
+
+	footer.append("p");
+
+	footer.append("text")
+		.text("Rate Ratio: The rate ratio is a relative measure of the rate of the highest income group divided by the rate of the lowest income group. Large rate ratios indicate high levels of relative inequity. A rate ratio is considered statistically significant if the 95% confidence interval does not include the value of one.");
+
+	footer.append("p");
+
+	footer.append("text")
+		.text("Definitions from: ");
+
+	footer.append("a")
+		.attr("class", "link")
+		.attr("href", "http://www1.toronto.ca/City%20Of%20Toronto/Toronto%20Public%20Health/Performance%20&%20Standards/Health%20Surveillance%20and%20Epidemiology/Files/pdf/Technical%20Report%20FINAL%20PRINT_AODA.pdf")
+		.html("Toronto Public Health, The Unequal City 2015: Income and Health Inequities in Toronto.");
+
+	footer.append("p");
 
 });
 
@@ -204,31 +208,6 @@ function type(d){
 	return d;
 }
 
-
-
-// function wrap(text, width){
-// 	text.each(function() {
-//     var text = d3.select(this),
-//         words = text.text().split(/\s+/).reverse(),
-//         word,
-//         line = [],
-//         lineNumber = 0,
-//         lineHeight = 1.1, // ems
-//         yscale = text.attr("y"),
-//         dy = parseFloat(text.attr("dy")),
-//         tspan = text.text(null).append("tspan").attr("x", 0).attr("y", yscale).attr("dy", dy + "em");
-//     while (word = words.pop()) {
-//       line.push(word);
-//       tspan.text(line.join(" "));
-//       if (tspan.node().getComputedTextLength() > width) {
-//         line.pop();
-//         tspan.text(line.join(" "));
-//         line = [word];
-//         tspan = text.append("tspan").attr("x", 0).attr("y", yscale).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-//       }
-//     }
-//   });
-// }
 
 
 
