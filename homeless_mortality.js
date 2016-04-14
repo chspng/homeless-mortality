@@ -158,7 +158,7 @@ d3.tsv("datafile-male", type, function(error, data){
 		.style("font-weight", "bold")
 		.style("font-size", "16px")
 		.style("font-family", "sans-serif")
-		.text("Mortality among the homeless and marginally housed, by major cause of death");
+		.text("Mortality among the homeless and marginally housed, by major cause of death (males)");
 
 	// add footer information
 	var footer = d3.select("body")
@@ -176,17 +176,17 @@ d3.tsv("datafile-male", type, function(error, data){
 	footer.append("p");
 
 	footer.append("text")
-		.text("Rate Difference: The rate difference measured the absolute difference between the rates of the highest and lowest income group. Large rate differences indicate high levels of absolute inequities. A rate difference is considered statistically significant if the 95% confidence interval does not include the value of zero.");
+		.text("Rate Difference: The rate difference measures the absolute difference between the rates of men living in shelters, rooming houses, and motels, with men in the entire cohort. Large rate differences indicate high levels of absolute inequities. A rate difference is considered statistically significant if the 95% confidence interval does not include the value of zero. It is based on age standardised mortality rates (per 100 000 person years at risk).");
 
 	footer.append("p");
 
 	footer.append("text")
-		.text("Rate Ratio: The rate ratio is a relative measure of the rate of the highest income group divided by the rate of the lowest income group. Large rate ratios indicate high levels of relative inequity. A rate ratio is considered statistically significant if the 95% confidence interval does not include the value of one.");
+		.text("Rate Ratio: The rate ratio is a relative measure of the rate of the men living in shelters, rooming houses, and motels divided by the rate of men in the entire cohort. Large rate ratios indicate high levels of relative inequity. A rate ratio is considered statistically significant if the 95% confidence interval does not include the value of one. It is based on age standardised mortality rates (per 100 000 person years at risk).");
 
 	footer.append("p");
 
 	footer.append("text")
-		.text("Definitions from: ");
+		.text("Definitions altered from: ");
 
 	footer.append("a")
 		.attr("class", "link")
