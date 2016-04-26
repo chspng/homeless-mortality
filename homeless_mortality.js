@@ -24,7 +24,7 @@ var yaxis = d3.svg.axis()
 	.orient("left");
 
 // read in data
-d3.tsv("datafile-male", type, function(error, data){
+d3.tsv("https://raw.githubusercontent.com/chspng/homeless-mortality/master/datafile-male", type, function(error, data){
 	if (error) throw error;
 
 	// setting up the scaling of data points to fit within the frame
